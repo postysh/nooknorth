@@ -6,6 +6,7 @@ import {
   AlertDialogAction,
   AlertDialogContent,
   AlertDialogFooter,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
 export function DevNoticeModal() {
@@ -14,6 +15,7 @@ export function DevNoticeModal() {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent className="max-w-md p-6">
+        <AlertDialogTitle className="sr-only">Under Development</AlertDialogTitle>
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="bg-primary/10 text-primary inline-flex size-10 items-center justify-center rounded-md">
             <svg

@@ -1,0 +1,92 @@
+"use client";
+
+import { useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { usePathname } from "next/navigation";
+
+export function Nav() {
+  const pathname = usePathname();
+  const [locationsOpen, setLocationsOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const isLocationsActive = pathname.startsWith('/locations');
+  const isToolsActive = pathname.startsWith('/tools');
+
+  return (
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-md border border-border rounded-lg px-4 py-2 shadow-lg inline-flex items-center gap-4 text-sm z-50" style={{ fontFamily: 'var(--font-geist-sans), system-ui, sans-serif' }}>
+      <a href="/" className="hover:opacity-80 transition-opacity">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+        </svg>
+      </a>
+      <div className="h-4 w-px bg-border" />
+      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <a 
+          href="/villagers" 
+          className={`hover:text-foreground transition-colors ${pathname === '/villagers' ? 'text-foreground' : ''}`}
+        >
+          Villagers
+        </a>
+        <div className="relative">
+          <button 
+            onClick={() => setLocationsOpen(!locationsOpen)}
+            onBlur={() => setTimeout(() => setLocationsOpen(false), 150)}
+            className={`hover:text-foreground transition-colors inline-flex items-center gap-1 ${isLocationsActive ? 'text-foreground' : ''}`}
+          >
+            Locations
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`w-3 h-3 transition-transform ${locationsOpen ? 'rotate-180' : ''}`}>
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          {locationsOpen && (
+            <div className="absolute top-full left-0 mt-4 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[140px]">
+              <a href="/locations/fishing" className="block px-3 py-2 hover:bg-muted transition-colors">🎣 Fishing Spots</a>
+              <a href="/locations/bugs" className="block px-3 py-2 hover:bg-muted transition-colors">🦋 Bug Hunting</a>
+              <a href="/locations/diving" className="block px-3 py-2 hover:bg-muted transition-colors">🤿 Diving</a>
+            </div>
+          )}
+        </div>
+        <input
+          type="text"
+          placeholder="Search..."
+          className="!w-32 px-3 py-1 text-sm bg-muted border border-border rounded-md outline-none focus:ring-1 focus:ring-ring"
+        />
+        <div className="relative">
+          <button 
+            onClick={() => setToolsOpen(!toolsOpen)}
+            onBlur={() => setTimeout(() => setToolsOpen(false), 150)}
+            className={`hover:text-foreground transition-colors inline-flex items-center gap-1 ${isToolsActive ? 'text-foreground' : ''}`}
+          >
+            Tools
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`w-3 h-3 transition-transform ${toolsOpen ? 'rotate-180' : ''}`}>
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          {toolsOpen && (
+            <div className="absolute top-full left-0 mt-4 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[140px]">
+              <a href="/tools/equipment" className="block px-3 py-2 hover:bg-muted transition-colors">🔧 Equipment</a>
+              <a href="/tools/recipes" className="block px-3 py-2 hover:bg-muted transition-colors">📋 DIY Recipes</a>
+              <a href="/tools/fossils" className="block px-3 py-2 hover:bg-muted transition-colors">🦴 Fossils</a>
+              <a href="/tools/art" className="block px-3 py-2 hover:bg-muted transition-colors">🎨 Art Guide</a>
+              <a href="/tools/gyroids" className="block px-3 py-2 hover:bg-muted transition-colors">🎵 Gyroids</a>
+            </div>
+          )}
+        </div>
+        <a 
+          href="/characters" 
+          className={`hover:text-foreground transition-colors ${pathname === '/characters' ? 'text-foreground' : ''}`}
+        >
+          Characters
+        </a>
+      </div>
+      <div className="h-4 w-px bg-border" />
+      <button className="hover:text-foreground transition-colors text-muted-foreground">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+        </svg>
+      </button>
+      <ThemeToggle />
+    </nav>
+  );
+}

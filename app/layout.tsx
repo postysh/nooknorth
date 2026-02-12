@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
-      <body className="antialiased font-jetbrains">
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from "next/navigation";
 import { NotificationsModal, getUnreadCount } from "@/components/notifications-modal";
@@ -16,6 +16,7 @@ export function Nav() {
   const [turnipPredictorOpen, setTurnipPredictorOpen] = useState(false);
   const [versionOpen, setVersionOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [gamesOpen, setGamesOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const isLocationsActive = pathname.startsWith('/locations');
   const isToolsActive = pathname.startsWith('/tools');
@@ -23,6 +24,28 @@ export function Nav() {
   useEffect(() => {
     setUnreadCount(getUnreadCount());
   }, [notificationsOpen]);
+
+  // Close all dropdowns
+  const closeAllDropdowns = useCallback(() => {
+    setLocationsOpen(false);
+    setToolsOpen(false);
+    setGamesOpen(false);
+  }, []);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if click is inside any dropdown or button
+      if (!target.closest('[data-dropdown]')) {
+        closeAllDropdowns();
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [closeAllDropdowns]);
+
 
   // Turnip icon SVG
   const TurnipIcon = () => (
@@ -70,10 +93,9 @@ export function Nav() {
         >
           Villagers
         </a>
-        <div className="relative">
+        <div className="relative" data-dropdown>
           <button 
-            onClick={() => setLocationsOpen(!locationsOpen)}
-            onBlur={() => setTimeout(() => setLocationsOpen(false), 150)}
+            onClick={() => { setLocationsOpen(!locationsOpen); setToolsOpen(false); setGamesOpen(false); }}
             className={`hover:text-foreground transition-colors inline-flex items-center gap-1 ${isLocationsActive ? 'text-foreground' : ''}`}
           >
             Locations
@@ -95,10 +117,9 @@ export function Nav() {
             <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
           </svg>
         </a>
-        <div className="relative">
+        <div className="relative" data-dropdown>
           <button 
-            onClick={() => setToolsOpen(!toolsOpen)}
-            onBlur={() => setTimeout(() => setToolsOpen(false), 150)}
+            onClick={() => { setToolsOpen(!toolsOpen); setLocationsOpen(false); setGamesOpen(false); }}
             className={`hover:text-foreground transition-colors inline-flex items-center gap-1 ${isToolsActive ? 'text-foreground' : ''}`}
           >
             Tools
@@ -154,6 +175,67 @@ export function Nav() {
       <span>Feedback</span>
     </button>
     <FeedbackModal open={feedbackOpen} onOpenChange={setFeedbackOpen} />
+
+    {/* Games Dropdown - Fixed left corner */}
+    <div className="fixed top-4 left-4 z-50" data-dropdown>
+      <button
+        onClick={() => { setGamesOpen(!gamesOpen); setLocationsOpen(false); setToolsOpen(false); }}
+        className="bg-background/80 backdrop-blur-md border border-border rounded-lg px-4 py-2 shadow-lg inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors h-[44px]"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+          <rect x="2" y="6" width="20" height="12" rx="2"/>
+          <circle cx="8" cy="12" r="2"/>
+          <path d="M18 9v6"/>
+          <path d="M15 12h6"/>
+        </svg>
+        <span>Games</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`w-3 h-3 transition-transform ${gamesOpen ? 'rotate-180' : ''}`}>
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      </button>
+      {gamesOpen && (
+        <div className="absolute top-full left-0 mt-2 bg-background/95 backdrop-blur-md border border-border rounded-lg shadow-lg py-1 min-w-[280px]">
+          <div className="px-3 py-2 text-[10px] uppercase tracking-wide text-muted-foreground/60">
+            Current
+          </div>
+          <div className="px-3 py-2 flex items-center gap-3 bg-primary/5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-primary">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+            <div>
+              <p className="text-sm font-medium text-foreground">Animal Crossing: New Horizons</p>
+              <p className="text-[10px] text-primary">Active</p>
+            </div>
+          </div>
+          <div className="border-t border-border my-1" />
+          <div className="px-3 py-2 text-[10px] uppercase tracking-wide text-muted-foreground/60">
+            Coming Soon
+          </div>
+          <div className="px-3 py-2 flex items-center gap-3 opacity-50 cursor-not-allowed">
+            <span className="text-lg">⚔️</span>
+            <div>
+              <p className="text-sm text-muted-foreground">The Legend of Zelda: Breath of the Wild</p>
+              <p className="text-[10px] text-muted-foreground/60">Coming soon</p>
+            </div>
+          </div>
+          <div className="px-3 py-2 flex items-center gap-3 opacity-50 cursor-not-allowed">
+            <span className="text-lg">🌟</span>
+            <div>
+              <p className="text-sm text-muted-foreground">The Legend of Zelda: Tears of the Kingdom</p>
+              <p className="text-[10px] text-muted-foreground/60">Coming soon</p>
+            </div>
+          </div>
+          <div className="px-3 py-2 flex items-center gap-3 opacity-50 cursor-not-allowed">
+            <span className="text-lg">🎮</span>
+            <div>
+              <p className="text-sm text-muted-foreground">Stardew Valley</p>
+              <p className="text-[10px] text-muted-foreground/60">Coming soon</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
     </>
   );
 }

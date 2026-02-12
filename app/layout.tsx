@@ -12,7 +12,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Nook North",
-  description: "Your Animal Crossing companion",
+  description: "Your Animal Crossing: New Horizons companion",
 };
 
 export default function RootLayout({

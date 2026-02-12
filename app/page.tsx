@@ -159,7 +159,7 @@ export default async function Page() {
             </svg>
             North
           </h1>
-          <p className="text-sm text-muted-foreground">Your Animal Crossing companion</p>
+          <p className="text-sm text-muted-foreground">Your Animal Crossing: <span className="text-primary font-medium">New Horizons</span> companion</p>
           <span className="inline-block mt-2 px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
             🚧 In Development
           </span>

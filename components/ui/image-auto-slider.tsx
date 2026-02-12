@@ -141,9 +141,31 @@ export const Component = ({ images }: ImageAutoSliderProps) => {
                     />
                   </div>
                   {image.name && (
-                    <div className="px-4 pb-4 pt-2">
-                      <div className="flex items-center justify-between mb-1">
-                        <h3 className="font-bold text-base text-foreground">{image.name}</h3>
+                    <div className="px-4 pb-4 pt-3 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-semibold text-base text-foreground">{image.name}</h3>
+                        {image.birthday && (
+                          <span className="text-xs text-muted-foreground">🎂 {image.birthday}</span>
+                        )}
+                      </div>
+                      
+                      {image.catchphrase && (
+                        <p className="text-xs text-muted-foreground italic truncate">"{image.catchphrase}"</p>
+                      )}
+                      
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="flex gap-1.5">
+                          {image.species && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                              {image.species}
+                            </span>
+                          )}
+                          {image.personality && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
+                              {image.personality}
+                            </span>
+                          )}
+                        </div>
                         {image.hobby && (
                           <span className="text-sm" title={image.hobby}>
                             {image.hobby === 'Education' && '📚'}
@@ -154,25 +176,6 @@ export const Component = ({ images }: ImageAutoSliderProps) => {
                             {image.hobby === 'Fashion' && '👗'}
                           </span>
                         )}
-                      </div>
-                      {image.catchphrase && (
-                        <p className="text-xs text-muted-foreground italic mb-2">"{image.catchphrase}"</p>
-                      )}
-                      <div className="flex flex-wrap gap-1">
-                        {image.species && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
-                            {image.species}
-                          </span>
-                        )}
-                        {image.personality && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
-                            {image.personality}
-                          </span>
-                        )}
-                      </div>
-                      <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-                        {image.gender && <span>{image.gender}</span>}
-                        {image.birthday && <span>🎂 {image.birthday}</span>}
                       </div>
                     </div>
                   )}

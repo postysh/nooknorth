@@ -1,4 +1,5 @@
 import { Component as ImageAutoSlider } from "@/components/ui/image-auto-slider";
+import { BGPattern } from "@/components/ui/bg-pattern";
 
 const API_HEADERS = {
   "X-API-KEY": process.env.NOOKIPEDIA_API_KEY || "",
@@ -144,13 +145,8 @@ export default async function Page() {
   const villagers = await getVillagers();
   
   return (
-    <main 
-      className="h-screen flex flex-col overflow-hidden"
-      style={{ 
-        backgroundImage: 'radial-gradient(var(--dot-color) 1px, transparent 1px)', 
-        backgroundSize: '20px 20px' 
-      }}
-    >
+    <main className="h-screen flex flex-col overflow-hidden relative">
+      <BGPattern variant="dots" mask="none" fill="var(--dot-color)" size={20} />
       {/* Hero Section */}
       <section className="pt-20 pb-4 px-4 text-center">
         <div className="animate-fade-in space-y-2">

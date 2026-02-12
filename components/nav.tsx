@@ -1,15 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from "next/navigation";
+import { NotificationsModal, getUnreadCount } from "@/components/notifications-modal";
 
 export function Nav() {
   const pathname = usePathname();
   const [locationsOpen, setLocationsOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const isLocationsActive = pathname.startsWith('/locations');
   const isToolsActive = pathname.startsWith('/tools');
+
+  useEffect(() => {
+    setUnreadCount(getUnreadCount());
+  }, [notificationsOpen]);
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-md border border-border rounded-lg px-4 py-2 shadow-lg inline-flex items-center gap-4 text-sm z-50">
@@ -76,13 +83,20 @@ export function Nav() {
         </a>
       </div>
       <div className="h-4 w-px bg-border" />
-      <button className="hover:text-foreground transition-colors text-muted-foreground">
+      <button 
+        onClick={() => setNotificationsOpen(true)}
+        className="hover:text-foreground transition-colors text-muted-foreground relative"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
           <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
           <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
         </svg>
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full" />
+        )}
       </button>
       <ThemeToggle />
+      <NotificationsModal open={notificationsOpen} onOpenChange={setNotificationsOpen} />
     </nav>
   );
 }

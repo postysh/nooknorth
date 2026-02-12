@@ -67,13 +67,6 @@ export const Component = ({ images }: ImageAutoSliderProps) => {
   return (
     <>
       <style>{`
-        html, body {
-          margin: 0;
-          padding: 0;
-          overflow-x: hidden;
-          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
         @keyframes scroll-right {
           0% {
             transform: translateX(0);

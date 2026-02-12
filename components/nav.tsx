@@ -12,7 +12,7 @@ export function Nav() {
   const isToolsActive = pathname.startsWith('/tools');
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-md border border-border rounded-lg px-4 py-2 shadow-lg inline-flex items-center gap-4 text-sm z-50" style={{ fontFamily: 'var(--font-geist-sans), system-ui, sans-serif' }}>
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-md border border-border rounded-lg px-4 py-2 shadow-lg inline-flex items-center gap-4 text-sm z-50">
       <a href="/" className="hover:opacity-80 transition-opacity">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
           <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
@@ -39,10 +39,10 @@ export function Nav() {
             </svg>
           </button>
           {locationsOpen && (
-            <div className="absolute top-full left-0 mt-4 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[140px]">
-              <a href="/locations/fishing" className="block px-3 py-2 hover:bg-muted transition-colors">🎣 Fishing Spots</a>
-              <a href="/locations/bugs" className="block px-3 py-2 hover:bg-muted transition-colors">🦋 Bug Hunting</a>
-              <a href="/locations/diving" className="block px-3 py-2 hover:bg-muted transition-colors">🤿 Diving</a>
+            <div className="absolute top-full left-0 mt-4 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[160px]">
+              <a href="/locations/fishing" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">🎣 Fishing Spots</a>
+              <a href="/locations/bugs" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">🦋 Bug Hunting</a>
+              <a href="/locations/diving" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">🤿 Diving</a>
             </div>
           )}
         </div>
@@ -63,12 +63,12 @@ export function Nav() {
             </svg>
           </button>
           {toolsOpen && (
-            <div className="absolute top-full left-0 mt-4 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[140px]">
-              <a href="/tools/equipment" className="block px-3 py-2 hover:bg-muted transition-colors">🔧 Equipment</a>
-              <a href="/tools/recipes" className="block px-3 py-2 hover:bg-muted transition-colors">📋 DIY Recipes</a>
-              <a href="/tools/fossils" className="block px-3 py-2 hover:bg-muted transition-colors">🦴 Fossils</a>
-              <a href="/tools/art" className="block px-3 py-2 hover:bg-muted transition-colors">🎨 Art Guide</a>
-              <a href="/tools/gyroids" className="block px-3 py-2 hover:bg-muted transition-colors">🎵 Gyroids</a>
+            <div className="absolute top-full left-0 mt-4 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[160px]">
+              <a href="/tools/equipment" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">🔧 Equipment</a>
+              <a href="/tools/recipes" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">📋 DIY Recipes</a>
+              <a href="/tools/fossils" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">🦴 Fossils</a>
+              <a href="/tools/art" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">🎨 Art Guide</a>
+              <a href="/tools/gyroids" className="block px-3 py-2 hover:bg-muted transition-colors whitespace-nowrap">🎵 Gyroids</a>
             </div>
           )}
         </div>

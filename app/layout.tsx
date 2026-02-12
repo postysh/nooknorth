@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Nav } from "@/components/nav";
+import { DevNoticeModal } from "@/components/dev-notice-modal";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-sans'});
@@ -35,6 +36,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <DevNoticeModal />
           <Nav />
           {children}
         </ThemeProvider>

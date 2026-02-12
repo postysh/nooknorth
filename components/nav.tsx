@@ -13,14 +13,9 @@ export function Nav() {
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-md border border-border rounded-lg px-4 py-2 shadow-lg inline-flex items-center gap-4 text-sm z-50">
-      <a href="/" className="hover:opacity-80 transition-opacity">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-        </svg>
-      </a>
-      <div className="h-4 w-px bg-border" />
       <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <span className="text-xs text-muted-foreground/60">v0.1.0</span>
+        <div className="h-4 w-px bg-border" />
         <a 
           href="/villagers" 
           className={`hover:text-foreground transition-colors ${pathname === '/villagers' ? 'text-foreground' : ''}`}
@@ -46,11 +41,12 @@ export function Nav() {
             </div>
           )}
         </div>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="!w-32 px-3 py-1 text-sm bg-muted border border-border rounded-md outline-none focus:ring-1 focus:ring-ring"
-        />
+        <a href="/" className="hover:opacity-80 transition-opacity text-foreground">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </a>
         <div className="relative">
           <button 
             onClick={() => setToolsOpen(!toolsOpen)}

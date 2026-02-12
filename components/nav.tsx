@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { NotificationsModal, getUnreadCount } from "@/components/notifications-modal";
 import { TurnipPredictorModal } from "@/components/turnip-predictor-modal";
 import { VersionModal } from "@/components/version-modal";
+import { FeedbackModal } from "@/components/feedback-modal";
 
 export function Nav() {
   const pathname = usePathname();
@@ -14,6 +15,7 @@ export function Nav() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [turnipPredictorOpen, setTurnipPredictorOpen] = useState(false);
   const [versionOpen, setVersionOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const isLocationsActive = pathname.startsWith('/locations');
   const isToolsActive = pathname.startsWith('/tools');
@@ -140,6 +142,18 @@ export function Nav() {
     </nav>
 
     <TurnipPredictorModal open={turnipPredictorOpen} onOpenChange={setTurnipPredictorOpen} />
+
+    {/* Feedback Button - Fixed right corner */}
+    <button
+      onClick={() => setFeedbackOpen(true)}
+      className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-md border border-border rounded-lg px-4 py-2 shadow-lg inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors h-[44px]"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span>Feedback</span>
+    </button>
+    <FeedbackModal open={feedbackOpen} onOpenChange={setFeedbackOpen} />
     </>
   );
 }
